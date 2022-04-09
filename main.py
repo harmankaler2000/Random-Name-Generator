@@ -1,23 +1,28 @@
 # project to generate random names
-import sys, random
+import sys
+import random
 import pandas as pd
 # links to the github datasets for names
-surnames = "https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/surnames/all.txt"
-
-firstnames = "https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/first%20names/all.txt"
+SURNAMES = "https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/surnames/all.txt"
+FIRSTNAMES = "https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/first%20names/all.txt"
 
 def read_csv(filename):
-# import csv file through a link
-    df = pd.read_csv(filename, header=None, on_bad_lines='skip')
-    names = list(df[0])
+    """
+    Function to read the csv file and return a list of names
+    """
+    names_df = pd.read_csv(filename, header=None, on_bad_lines='skip')
+    names = list(names_df[0])
     return names
 
 
 def main():
+    """
+    Main Function
+    """
     print("Hi! Welcome to the Random Name Generator!")
     print("This program will generate a random name for you.")
-    first_names = read_csv(firstnames)
-    sur_names = read_csv(surnames)
+    first_names = read_csv(FIRSTNAMES)
+    sur_names = read_csv(SURNAMES)
     while True:
         try:
             first_random = random.choice(first_names)
@@ -27,15 +32,14 @@ def main():
             answer = input()
             if answer.lower() == "y":
                 continue
-            elif answer.lower() == "n":
+            if answer.lower() == "n":
                 print("Thank you for using the Random Name Generator!")
                 sys.exit()
             else:
                 print("Invalid answer! Exiting Program...")
-        except Exception as e:
-            print("Exception occured: ", str(e))
+        except Exception as error:
+            print("Exception occured: ", str(error))
 
 
 if __name__ == "__main__":
     main()
-
