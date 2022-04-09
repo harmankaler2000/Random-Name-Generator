@@ -1,4 +1,4 @@
-# project to generate random names
+"""Project to generate random names"""
 import sys
 import random
 import pandas as pd
